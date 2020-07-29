@@ -19,8 +19,7 @@ import java.util.List;
 public class RentalController {
 
   private static Logger logger = LoggerFactory.getLogger(RentalController.class);
-@Autowired
-  private RentalServiceImpl rentalService;
+  @Autowired private RentalServiceImpl rentalService;
 
   @GetMapping("/all")
   public List<Rental> getAllRental() {
