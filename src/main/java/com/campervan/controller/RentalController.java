@@ -1,0 +1,60 @@
+package com.campervan.controller;
+
+import com.campervan.model.entity.Rental;
+import com.campervan.service.impl.RentalServiceImpl;
+import org.honton.chas.datadog.apm.TraceOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@RestController
+@RequestMapping(path = "/rental")
+@TraceOperation(type = TraceOperation.WEB)
+public class RentalController {
+
+    private static Logger logger = LoggerFactory.getLogger(RentalController.class);
+
+ private RentalServiceImpl rentalService;
+
+  @GetMapping("/all")
+  public List<Rental> getAllRental() {
+    return rentalService.getAllCampervan();
+  }
+
+  @GetMapping("/all_price")
+  public List<Rental> getAllPriceDecs() {
+    return rentalService.getAllCampervanOrderByPricePerDayDESC();
+  }
+
+  @GetMapping("/price_between")
+  public List<Rental> getPriceBetween(@RequestParam double min, double max) {
+    return rentalService.getPricePerDayBetween(BigDecimal.valueOf(min), BigDecimal.valueOf(max));
+  }
+
+  @GetMapping("/get_id")
+  public List<Rental> getRentalsId(@RequestParam long id) {
+    return rentalService.getByCampervanID(id);
+  }
+
+  @GetMapping("/get_near")
+
+  public List<Rental> getLocated(@RequestParam double x ,double y) {
+    return rentalService.getLocation(x ,y);
+  }
+
+  @GetMapping("/page")
+  public List<Rental> getPage(@RequestParam int limit,int offset) {
+    return rentalService.getPage(limit, offset);
+  }
+
+  @GetMapping("/ids")
+  public List<Rental> getIds(@RequestParam long[] ids) {
+    return rentalService.getByCampervansIds(ids);
+  }
+}
