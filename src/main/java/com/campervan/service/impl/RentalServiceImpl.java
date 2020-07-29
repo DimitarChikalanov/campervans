@@ -119,6 +119,7 @@ public class RentalServiceImpl implements RentalService {
   @Override
   public List getByCampervanID(long id) {
     String message = String.format("Service - getByCampervansID parameters" +id);
+    y.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
     if (id<1){
       IllegalArgumentException e = new IllegalArgumentException("Invalid id");
       Sentry.capture(e);
