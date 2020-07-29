@@ -1,10 +1,11 @@
 package com.campervan.controller;
 
+import com.campervan.config.ConfigurationBean;
 import com.campervan.model.entity.Rental;
 import com.campervan.service.impl.RentalServiceImpl;
-import org.honton.chas.datadog.apm.TraceOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,12 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/rental")
-@TraceOperation(type = TraceOperation.WEB)
 public class RentalController {
 
-    private static Logger logger = LoggerFactory.getLogger(RentalController.class);
-
- private RentalServiceImpl rentalService;
+  private static Logger logger = LoggerFactory.getLogger(RentalController.class);
+@Autowired
+  private RentalServiceImpl rentalService;
 
   @GetMapping("/all")
   public List<Rental> getAllRental() {
@@ -29,6 +29,7 @@ public class RentalController {
 
   @GetMapping("/all_price")
   public List<Rental> getAllPriceDecs() {
+
     return rentalService.getAllCampervanOrderByPricePerDayDESC();
   }
 
@@ -39,17 +40,18 @@ public class RentalController {
 
   @GetMapping("/get_id")
   public List<Rental> getRentalsId(@RequestParam long id) {
+
     return rentalService.getByCampervanID(id);
   }
 
   @GetMapping("/get_near")
+  public List<Rental> getLocated(@RequestParam double x, double y) {
 
-  public List<Rental> getLocated(@RequestParam double x ,double y) {
-    return rentalService.getLocation(x ,y);
+    return rentalService.getLocation(x, y);
   }
 
   @GetMapping("/page")
-  public List<Rental> getPage(@RequestParam int limit,int offset) {
+  public List<Rental> getPage(@RequestParam int limit, int offset) {
     return rentalService.getPage(limit, offset);
   }
 
