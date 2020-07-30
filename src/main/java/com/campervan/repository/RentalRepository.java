@@ -20,8 +20,6 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
   @Query("select r from Rental as r where sqrt((r.lat-:x)*(r.lat-:x)+(r.lng-:y)*(r.lng-:y))<=100")
   List<Rental> findLocated(double x, double y);
 
-
-
   List<Rental> findAllByOrderByPricePerDayDesc();
 
   List<Rental> findAllById(long id);
