@@ -1,6 +1,5 @@
 package com.campervan.controller;
 
-import com.campervan.config.ConfigurationBean;
 import com.campervan.model.entity.Rental;
 import com.campervan.service.impl.RentalServiceImpl;
 import datadog.trace.api.Trace;
@@ -31,7 +30,6 @@ public class RentalController {
   @GetMapping("/all_price")
   @Trace
   public List<Rental> getAllPriceDecs() {
-
     return rentalService.getAllCampervanOrderByPricePerDayDESC();
   }
 
