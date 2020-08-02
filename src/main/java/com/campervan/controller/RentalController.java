@@ -49,7 +49,6 @@ public class RentalController {
   @GetMapping("/get_near")
   @Trace
   public List<Rental> getLocated(@RequestParam double x, double y) {
-
     return rentalService.getLocation(x, y);
   }
 
