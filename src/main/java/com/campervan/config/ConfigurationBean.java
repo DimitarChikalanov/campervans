@@ -1,8 +1,6 @@
 package com.campervan.config;
 
 
-import com.campervan.service.RentalService;
-import com.campervan.service.impl.RentalServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
