@@ -12,7 +12,8 @@ dogstatsd_port: 8125
 dd.agent.host: localhost
 dd.trace.agent.port: 8126
 dd.service.mapping: ostgres:my-postgres-campervans_db
-dd.trace.config: src/main/resources/dataDog.yaml
+#dd.trace.config: src/main/resources/dataDog.yaml
 dd.trace.agent.timeout: 10
 dd.trace.partial.flush.min.spans: 1000
 dd.jmxfetch.enabled: false
+

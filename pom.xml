@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>campervan</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>campervan</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Campervan project for Spring Boot</description>
 
     <properties>
         <java.version>11</java.version>
@@ -103,6 +103,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <finalName>campervan</finalName>
+
+
     </build>
 
 </project>

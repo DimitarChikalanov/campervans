@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/campervans_db
+    username: dimitar
+    password: tarator
