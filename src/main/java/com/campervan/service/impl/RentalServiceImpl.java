@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class RentalServiceImpl implements RentalService {
 
@@ -23,39 +22,42 @@ public class RentalServiceImpl implements RentalService {
     Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
     List rentalList = new ArrayList();
     rentalRepository.findAll().forEach(rentalList::add);
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getAllCampervan").build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getAllCampervan").build());
     return rentalList;
   }
 
   @Override
   public List getPricePerDayBetween(BigDecimal min, BigDecimal max) {
-    String message = String.format("Service - getBetweenPrice parameters"+min + max);
+    String message = String.format("Service - getBetweenPrice parameters" + min + max);
     Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
     List rentalList = new ArrayList();
     rentalRepository.findByPricePerDayBetween(min, max).forEach(rentalList::add);
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getBetweenPrice").build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getBetweenPrice").build());
     return rentalList;
   }
 
   @Override
   public List getByCampervansIds(long[] ids) {
-    String message = String.format("Service - getByCampervansIds parameters" +ids);
+    String message = String.format("Service - getByCampervansIds parameters" + ids);
     Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
-    if (ids.length==0){
+    if (ids.length == 0) {
       IllegalArgumentException e = new IllegalArgumentException("No id");
       Sentry.capture(e);
       throw e;
     }
     List rentalList = new ArrayList();
     for (long id : ids) {
-      if (id<1){
+      if (id < 1) {
         IllegalArgumentException e = new IllegalArgumentException("Invalid id");
         Sentry.capture(e);
         throw e;
       }
       rentalList.add(rentalRepository.findById(id));
     }
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from ByCampervansIds").build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from ByCampervansIds").build());
     return rentalList;
   }
 
@@ -85,7 +87,11 @@ public class RentalServiceImpl implements RentalService {
     Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
     List rentalList = new ArrayList();
     rentalRepository.findAllByOrderByPricePerDayDesc().forEach(rentalList::add);
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getAllCampervanOrderByPricePerDayDESC").build());
+    Sentry.getContext()
+        .recordBreadcrumb(
+            new BreadcrumbBuilder()
+                .setMessage("Exit from getAllCampervanOrderByPricePerDayDESC")
+                .build());
     return rentalList;
   }
 
@@ -96,38 +102,42 @@ public class RentalServiceImpl implements RentalService {
     List rentalList = new ArrayList();
     List page = new ArrayList();
     rentalRepository.findAll().forEach(rentalList::add);
-    if (offset<0 || offset>rentalList.size()){
+    if (offset < 0 || offset > rentalList.size()) {
       IllegalArgumentException e = new IllegalArgumentException("Offset out of range");
       Sentry.capture(e);
       throw e;
     }
-    if (limit<0){
+    if (limit < 0) {
       IllegalArgumentException e = new IllegalArgumentException("Limits out of range");
       Sentry.capture(e);
       throw e;
     }
     for (int i = limit * offset; i < (limit + 1) * offset; i++) {
-      if (i>=rentalList.size()){
+      if (i >= rentalList.size()) {
         break;
       }
       page.add(rentalList.get(i));
     }
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getPage").build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from getPage").build());
     return page;
   }
 
   @Override
   public List getByCampervanID(long id) {
-    String message = String.format("Service - getByCampervansID parameters" +id);
+    String message = String.format("Service - getByCampervansID parameters" + id);
     Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
-    if (id<1){
+    if (id < 1) {
       IllegalArgumentException e = new IllegalArgumentException("Invalid id");
       Sentry.capture(e);
       throw e;
     }
     List rentalList = new ArrayList();
     rentalRepository.findAllById(id).forEach(rentalList::add);
-    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from ByCampervansID").build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from ByCampervansID").build());
     return rentalList;
   }
+
+
 }

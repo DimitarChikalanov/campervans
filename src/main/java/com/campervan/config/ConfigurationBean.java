@@ -11,4 +11,7 @@ public class ConfigurationBean {
     public HandlerExceptionResolver sentryExceptionResolver() {
         return new io.sentry.spring.SentryExceptionResolver();
     }
+
+
+
 }

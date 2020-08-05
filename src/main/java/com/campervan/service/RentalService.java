@@ -21,4 +21,5 @@ public interface RentalService {
   List getPage(int limit, int offset);
 
   List getByCampervanID(long id);
+
 }

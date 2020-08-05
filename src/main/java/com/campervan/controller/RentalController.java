@@ -63,4 +63,5 @@ public class RentalController {
   public List<Rental> getIds(@RequestParam long[] ids) {
     return rentalService.getByCampervansIds(ids);
   }
+
 }
