@@ -1,5 +1,6 @@
 package com.campervan.service;
 
+import com.campervan.model.entity.Rental;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ public interface RentalService {
 
   List getPricePerDayBetween(BigDecimal min, BigDecimal max);
 
-  List getByCampervansIds(long ids []);
+  List getByCampervansIds(long ids[]);
 
   List getLocation(double lad, double lng);
 
@@ -22,4 +23,7 @@ public interface RentalService {
 
   List getByCampervanID(long id);
 
+  Rental addNewRental(Rental rental);
+
+  void removeRental(Rental rental);
 }

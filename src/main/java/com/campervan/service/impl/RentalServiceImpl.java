@@ -1,5 +1,6 @@
 package com.campervan.service.impl;
 
+import com.campervan.model.entity.Rental;
 import com.campervan.repository.RentalRepository;
 import com.campervan.service.RentalService;
 import io.sentry.Sentry;
@@ -14,7 +15,11 @@ import java.util.List;
 @Service
 public class RentalServiceImpl implements RentalService {
 
-  @Autowired private RentalRepository rentalRepository;
+  @Autowired private final RentalRepository rentalRepository;
+
+  public RentalServiceImpl(RentalRepository rentalRepository) {
+    this.rentalRepository = rentalRepository;
+  }
 
   @Override
   public List getAllCampervan() {
@@ -139,5 +144,17 @@ public class RentalServiceImpl implements RentalService {
     return rentalList;
   }
 
+  @Override
+  public Rental addNewRental(Rental rental) {
+    String message = String.format("Add new Rental");
+    Sentry.getContext().recordBreadcrumb(new BreadcrumbBuilder().setMessage(message).build());
+    Sentry.getContext()
+        .recordBreadcrumb(new BreadcrumbBuilder().setMessage("Exit from addNewRental").build());
+    return rentalRepository.save(rental);
+  }
 
+  @Override
+  public void removeRental(Rental rental) {
+    rentalRepository.delete(rental);
+  }
 }

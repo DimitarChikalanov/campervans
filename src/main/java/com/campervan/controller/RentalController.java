@@ -1,16 +1,16 @@
 package com.campervan.controller;
 
 import com.campervan.model.entity.Rental;
+import com.campervan.repository.RentalRepository;
 import com.campervan.service.impl.RentalServiceImpl;
 import datadog.trace.api.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,7 +19,13 @@ import java.util.List;
 public class RentalController {
 
   private static Logger logger = LoggerFactory.getLogger(RentalController.class);
-  @Autowired private RentalServiceImpl rentalService;
+  @Autowired private final RentalServiceImpl rentalService;
+  private final RentalRepository rentalRepository;
+
+  public RentalController(RentalServiceImpl rentalService, RentalRepository rentalRepository) {
+    this.rentalService = rentalService;
+    this.rentalRepository = rentalRepository;
+  }
 
   @GetMapping("/all")
   @Trace
@@ -64,4 +70,21 @@ public class RentalController {
     return rentalService.getByCampervansIds(ids);
   }
 
+  @PostMapping("/add_rental")
+  @Trace
+  public ResponseEntity<Rental> addNewRental(@RequestBody Rental rental) {
+    rentalService.addNewRental(rental);
+    return ResponseEntity.ok().build();
+  }
+
+  @DeleteMapping("/delete_rental")
+  @Trace
+  public ResponseEntity<?> deleteSensorData(@PathVariable(value = "id") long id) {
+    Rental rental =
+        rentalRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("id not countain" + id));
+    rentalService.removeRental(rental);
+    return ResponseEntity.ok().build();
+  }
 }

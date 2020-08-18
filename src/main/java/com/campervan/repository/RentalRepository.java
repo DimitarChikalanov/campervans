@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 
-
-
 @Repository
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
@@ -23,5 +21,7 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
   List<Rental> findAllByOrderByPricePerDayDesc();
 
   List<Rental> findAllById(long id);
+
+
 
 }
