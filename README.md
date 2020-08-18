@@ -19,9 +19,13 @@ Spring Boot, Rest, JPA, Lombok, Postgresql, Sentry, DataDog
 
 *	Service
 
--	RentalService –interface contains service methods’ names
+-	RentalService – interface contains service methods’ names
 
 -	RentalServiceImp implements RentalService
+
+-ImageService - interface contains service methods’ names
+
+-ImageServiceImpl implements ImageService
 
 -	The all methods of services check input parameters and throw illegal argument exception when they are called with  incorrect parameters. This checking prevents  illegal SQL queries .Error reporting to sentry before throwing exception.
 *       Controllers
